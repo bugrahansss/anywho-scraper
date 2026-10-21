@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scrapedo-anywho"
+version = "0.1.0"
+description = "AnyWho scraper: profiles, name search to CSV and reverse phone lookup, built on the Scrape.do API."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [{ name = "Scrape.do", email = "growth@scrape.do" }]
+keywords = ["anywho", "anywho-scraper", "people-search", "reverse-phone-lookup", "web-scraping", "scrape.do"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+]
+dependencies = ["requests>=2.28", "beautifulsoup4>=4.11"]
+
+[project.urls]
+Homepage = "https://scrape.do/blog/anywho-scraping/"
+Source = "https://github.com/bugrahansss/anywho-scraper"
+"Get a free token" = "https://dashboard.scrape.do/signup"
+
+[project.scripts]
+anywho = "scrapedo_anywho.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/scrapedo_anywho"]
