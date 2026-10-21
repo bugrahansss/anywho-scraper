@@ -1,0 +1,32 @@
+name: publish to PyPI
+
+# Runs when a GitHub release is published. Uses PyPI Trusted Publishing,
+# so no PyPI password or token is stored in the repo.
+on:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install .
+      - run: python -m unittest discover -s tests -v
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install build && python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
